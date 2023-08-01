@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <!-- Mirrored from xai.cx/gpt/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Jul 2023 11:09:14 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>X AI | X GPT</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../assets/img/logo_32px_icon.png" />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/normalize.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <!-- Mordernizer -->
+    <script src="assets/js/vendor/modernizr-3.11.2.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="mobile-header d-lg-none">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvas"
+          aria-controls="offcanvas"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="row g-0">
+        <div class="col-xl-2 col-lg-3">
+          <div
+            class="sidebar offcanvas-lg offcanvas-start"
+            tabindex="-1"
+            id="offcanvas"
+          >
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-toggle="offcanvas"
+              aria-label="Close"
+              data-bs-target="#offcanvas"
+            ></button>
+            <div class="sidebar-logo">
+              <a href="#"><img src="../assets/img/logo_footer.png" alt="" /></a>
+            </div>
+            <div class="sidebar-bottom">
+              <ul>
+                <li>
+                  <a href="https://docs.xai.cx/"
+                    ><span
+                      ><i class="fa-solid fa-up-right-from-square"></i></span
+                    >Docs</a
+                  >
+                </li>
+                <li>
+                  <a href="https://xai.cx/"
+                    ><span><i class="fa-regular fa-user"></i></span>X AI -
+                    Homepage</a
+                  >
+                </li>
+                <li>
+                  <a href="https://xai.cx/draw"
+                    ><span
+                      ><i class="fa-solid fa-up-right-from-square"></i></span
+                    >X Draw</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-10 col-lg-9">
+          <div class="chat-wrapper">
+            <div class="chat-body form">
+              <div class="bot-inbox inbox">
+                <div class="wrap">
+                  <div class="icon">
+                    <img src="../assets/img/logo_100px.png" alt="" />
+                  </div>
+                  <div class="msg-header">
+                    <p id="hello-text">
+                      Hello, Welcome to xAI GPT. Please key in your question.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="chat-bottom">
+              <div class="chat-input">
+                <input
+                  type="text"
+                  id="data"
+                  placeholder="Type something here.."
+                  required
+                />
+                <button type="submit" id="send-btn">
+                  <i class="fa-regular fa-paper-plane"></i>
+                </button>
+              </div>
+              <p>
+                © All rights reserved by xai.cx, your valuable input can benefit
+                xAI GPT, allowing our AI to fine-tune its machine learning and
+                deep learning capabilities.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="preloader">
+      <div id="loader"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/t.min.js"></script>
+    <script>
+      $(window).on("load", function () {
+        $("#loader").fadeOut(100, function () {
+          $("#preloader").fadeOut(200);
+          $("body").removeClass("loading");
+        });
+      });
+      $(document).ready(function ($) {
+        // Animation Text
+        $("#hello-text").t({
+          pause_on_tab_switch: false,
+          blink: false,
+          blink_perm: true,
+          speed: 20,
+          speed_vary: false,
+          fin: function () {
+            $(".t-caret").fadeOut();
+          },
+        });
+
+        var i = 0;
+
+        // For Input Enter key
+        $("#data").keyup(function (event) {
+          if (event.keyCode === 13) {
+            $value = $("#data").val();
+            $msg =
+              '<div class="user-inbox inbox"><div class="wrap"><div class="icon"><img src="assets/img/x2.png" alt="" /></div><div class="msg-header"><p>' +
+              $value +
+              "</p></div></div></div>";
+            $(".form").append($msg);
+            $("#data").val("");
+
+            $replay =
+              '<div class="bot-inbox inbox"><div class="wrap"><div class="icon"><img src="../assets/img/logo_100px.png" alt=""></div><div class="msg-header" id="chat-' +
+              i +
+              '"><p>&nbsp;</p></div></div>';
+
+            $(".form").append($replay);
+            $(".form").scrollTop($(".form")[0].scrollHeight);
+
+            $("#chat-" + i + " p").t();
+
+            console.log($value);
+            $.ajax({
+              url: "https://office.prolocalize.com/xai/gpt/message.php",
+              type: "POST",
+              data: "text=" + $value,
+              success: function (result) {
+                $("#chat-" + i).html("<p>" + result + "</p>");
+
+                $("#chat-" + i + " p").t({
+                  pause_on_tab_switch: false,
+                  blink: false,
+                  speed: 20,
+                  blink_perm: true,
+                  speed_vary: false,
+                  fin: function () {
+                    $(".t-caret").fadeOut();
+                  },
+                });
+
+                i++;
+              },
+            });
+          }
+        });
+
+        // For Button
+        $("#send-btn").on("click", function () {
+          // When the "Send" button is clicked...
+          $value = $("#data").val(); // Get the value of the input field
+          $msg =
+            '<div class="user-inbox inbox"><div class="wrap"><div class="icon"><img src="assets/img/x2.png" alt="" /></div><div class="msg-header"><p>' +
+            $value +
+            "</p></div></div></div>"; // Create a message container for the user's message
+          $(".form").append($msg); // Append the user's message to the chat container
+          $("#data").val(""); // Clear the input field
+
+          $.ajax({
+            // Send an AJAX request to the server
+            url: "https://office.prolocalize.com/xai/gpt/message.php", // The URL to send the request to
+            type: "POST", // The HTTP method to use
+            data: "text=" + $value, // The data to send in the request
+            success: function (result) {
+              // If the request is successful...
+              $replay =
+                '<div class="bot-inbox inbox"><div class="wrap"><div class="icon"><img src="assets/img/x2.png" alt=""></div><div class="msg-header" id="chat-' +
+                i +
+                '"><p>' +
+                result +
+                "</p></div></div>"; // Create a message container for the bot's response
+
+              $(".form").append($replay); // Append the bot's response to the chat container
+              $("#chat-" + i).t({ caret: false });
+              $(".form").scrollTop($(".form")[0].scrollHeight); // Scroll to the bottom of the chat container
+              i++;
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+
+  <!-- Mirrored from xai.cx/gpt/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Jul 2023 11:09:16 GMT -->
+</html>
